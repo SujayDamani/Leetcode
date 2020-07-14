@@ -9,20 +9,19 @@ class Solution:
             return 0
         r = len(grid)
         c = len(grid[0])
-        arr = np.zeros([r, c], dtype=int)
-        for i in range(0, r):
-            for j in range(0, c):
-                arr[i][j] = sys.maxsize
+        arr = [[sys.maxsize for x in range(c)] for y in range(r)]
         q = queue.Queue()
         q.put([0, 0])
-        p = [0, 0]
         arr[0][0] = grid[0][0]
         while q.qsize() > 0:
             p = q.get()
+            if p[0] > len(grid)-1 and p[1] > len(grid[0])-1:
+                break
             visit(grid, arr, q, p[0], p[1]+1, p)
 
             visit(grid, arr, q, p[0]+1, p[1], p)
 
+        print(arr)
         return arr[r-1][c-1]
 
 
